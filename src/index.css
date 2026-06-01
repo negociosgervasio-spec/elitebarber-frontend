@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+    --container-5xl: 96rem;
+}
+
+@media (min-width: 1152px) {
+    .container {
+        margin: 0 auto;
+    }
+}
+
+:root {
+    /* Fonte para corpo (limpa/sans-serif) */
+    --font-body: 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(62%) sepia(83%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+
+select {
+    appearance: none;
+    /* Chrome, Safari */
+    -moz-appearance: none;
+    /* Firefox */
+    -ms-appearance: none;
+    /* IE */
+    background: transparent;
+    padding-right: 2rem;
+    /* espaço para a seta */
+
+    /* seta customizada */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23f59e0b' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+}
