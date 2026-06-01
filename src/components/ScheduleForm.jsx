@@ -77,7 +77,7 @@ const ScheduleForm = () => {
         const api = import.meta.env.VITE_API_URL;
 
         try {
-            const res = await axios.post(`${api}/schedule`, data);
+            const res = await axios.post(`${api}/schedules`, data);
             toast.success(res.data.message || "Agendamento criado com sucesso!");
             // limpar campos
             setName("");
@@ -96,7 +96,7 @@ const ScheduleForm = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="m-auto bg-neutral-900 flex flex-col gap-6 pt-16 pb-16  pr-4 pl-4 md:pr-12 md:pl-12 border border-amber-400/50 rounded-sm lg:w-4xl"
+            className="m-auto bg-neutral-900 flex flex-col gap-6 pt-16 pb-16 pr-4 pl-4 border border-amber-400/50 rounded-sm lg:w-4xl"
         >
             {/* name */}
             <div className="flex flex-col gap-3">

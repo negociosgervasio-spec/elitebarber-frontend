@@ -25,7 +25,7 @@ const MessageForm = () => {
 
         try {
             const res = await axios.post(`${api}/messages/create`, data);
-            toast.success(res.message || "Mensagem enviada com sucesso!");
+            toast.success(res.data.message || "Mensagem enviada com sucesso!");
             setName('')
             setEmail('')
             setMessage('')
@@ -43,7 +43,7 @@ const MessageForm = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="m-auto bg-neutral-900 flex flex-col gap-6 p-4 md:p-16 border border-amber-400/50 rounded-2xl lg:w-4xl">
+            className="m-auto bg-neutral-900 flex flex-col gap-6 pb-16 pt-16 pr-4 pl-4 border border-amber-400/50 rounded-2xl lg:w-4xl">
             <div className="flex items-center gap-4 text-amber-400">
                 <MessageSquare size={28} className='self-center' />
                 <h2 className='text-3xl font-black self-center'>Envie uma Mensagem</h2>

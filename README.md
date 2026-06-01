@@ -1,16 +1,68 @@
-# React + Vite
+# Frontend - Elite Barber
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação React + Vite para o site da barbearia, responsável pela interface de agendamento, contato e apresentação dos serviços.
 
-Currently, two official plugins are available:
+## Visão geral
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Formulário de agendamento usando `ScheduleForm`
+- Formulário de mensagem usando `MessageForm`
+- Consome backend via `VITE_API_URL`
 
-## React Compiler
+## Pré-requisitos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Node.js 18+ instalado
+- O backend deve estar disponível e acessível pela mesma rede ou por URL pública
 
-## Expanding the ESLint configuration
+## Variáveis de ambiente
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Crie um arquivo `.env` na pasta `frontend` com a variável abaixo:
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+No ambiente de produção, o backend já está configurado em `frontend/.env.production` com:
+
+```env
+VITE_API_URL=https://elitebarber-backend.onrender.com
+```
+
+## Instalação
+
+```bash
+cd frontend
+npm install
+```
+
+## Execução local
+
+```bash
+npm run dev
+```
+
+Para testar no celular pela rede local, execute:
+
+```bash
+npm run dev -- --host
+```
+
+Em seguida, abra no navegador do celular:
+
+```bash
+http://<IP-do-PC>:5173
+```
+
+## Uso em mobile
+
+- Se usar backend local, defina `VITE_API_URL` com o IP do computador, por exemplo `http://192.168.0.10:3000`.
+- Não use `localhost` no celular porque ele se refere ao próprio dispositivo.
+
+## Rotas de API utilizadas
+
+- `POST ${api}/messages/create`
+- `POST ${api}/schedules`
+
+## Observações
+
+- O endereço do backend deve ser consistente entre frontend e backend.
+- Se o backend estiver em uma máquina diferente, verifique se ele está acessível pela rede e se a porta não está bloqueada.
