@@ -74,8 +74,10 @@ const ScheduleForm = () => {
             datetime: new Date(`${date}T${time}`)
         };
 
+        const api = import.meta.env.VITE_API_URL;
+
         try {
-            const res = await axios.post("http://localhost:5000/api/schedules", data);
+            const res = await axios.post(`${api}/schedule`, data);
             toast.success(res.data.message || "Agendamento criado com sucesso!");
             // limpar campos
             setName("");
@@ -147,7 +149,7 @@ const ScheduleForm = () => {
                 <select
                     name="service"
                     id="service"
-                    className="text-white border border-amber-400/50 hover:border-2 focus:outline-amber-500 focus:outline-1 outline-0 transition-colors duration-200 ease-linear p-4 text-base rounded-sm focus:bg-neutral-950"
+                    className="text-white border border-amber-400/50 hover:border-2 focus:outline-amber-500 focus:outline-1 outline-0 transition-colors duration-200 ease-linear p-4 text-base rounded-sm focus-visible:bg-neutral-950 focus:bg-neutral-950"
                     value={service}
                     onChange={(e) => setService(e.target.value)}
                     required
@@ -176,7 +178,7 @@ const ScheduleForm = () => {
                         type="date"
                         name="date"
                         id="date"
-                        className=" text-white border border-amber-400/50 hover:border-2 focus:outline-amber-500 focus:outline-1 outline-0 transition-colors duration-200 ease-linear p-4 text-base rounded-sm"
+                        className="text-white border border-amber-400/50 hover:border-2 focus:outline-amber-500 focus:outline-1 outline-0 transition-colors duration-200 ease-linear p-4 text-base rounded-sm"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                         required
@@ -195,7 +197,7 @@ const ScheduleForm = () => {
                     <select
                         name="time"
                         id="time"
-                        className="text-white border border-amber-400/50 hover:border-2 focus:outline-amber-500 focus:outline-1 outline-0 transition-colors duration-200 ease-linear p-4 text-base rounded-sm focus:bg-neutral-950"
+                        className="text-white border border-amber-400/50 hover:border-2 focus:outline-amber-500 focus:outline-1 outline-0 transition-colors duration-200 ease-linear p-4 text-base rounded-sm focus-visible:bg-neutral-950 focus:bg-neutral-950"
                         value={time}
                         onChange={(e) => setTime(e.target.value)}
                         required

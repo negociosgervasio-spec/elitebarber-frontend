@@ -21,8 +21,10 @@ const MessageForm = () => {
             message
         }
 
+        const api = import.meta.env.VITE_API_URL;
+
         try {
-            const res = await axios.post("http://localhost:5000/api/messages/create", data);
+            const res = await axios.post(`${api}/messages/create`, data);
             toast.success(res.message || "Mensagem enviada com sucesso!");
             setName('')
             setEmail('')

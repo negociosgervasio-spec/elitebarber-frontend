@@ -24,8 +24,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(62%) sepia(83%) saturate(500%) hue-rotate(10deg) brightness(95%) contrast(90%);
     width: 1.5rem;
     height: 1.5rem;
+    color: white;
 }
-
 
 select {
     appearance: none;
