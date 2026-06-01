@@ -89,7 +89,7 @@ const Contact = () => {
             </section>
 
             <div className="container flex flex-col items-center gap-12 pb-32 pl-4 pr-4">
-                <section>
+                <section className="pb-16 pt-16 pr-4 pl-4">
                     <MessageForm />
                     <ToastContainer position="top-right" autoClose={3000} />
                 </section>
@@ -103,7 +103,7 @@ const Contact = () => {
                 </section>
 
                 <section className="p-4 md:p-16 bg-neutral-900 lg:w-4xl m-auto border border-amber-400/30 rounded-2xl">
-                    <div className="grid grid-rows-1 gap-6 text-gray-400 text-start">
+                    <div className="grid grid-rows-1 gap-6 text-gray-400 text-start pb-16 pt-16 pr-4 pl-4">
                         <h2 className="text-3xl font-semibold text-amber-400">Redes Socias</h2>
                         <p className='text-2xl'>Siga-nos nas redes sociais para ficar por dentro das novidades e promoções!</p>
                         {/* medias */}
