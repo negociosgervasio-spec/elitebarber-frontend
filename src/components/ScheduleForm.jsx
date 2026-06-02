@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 
 import { Calendar, Clock, Check, Phone, User } from 'lucide-react'
 
@@ -9,11 +9,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ScheduleForm = () => {
     // gera opções de 30 em 30 minutos entre 09:00 e 19:00
-    const options = useMemo(() => {
+    const initialOptions = useMemo(() => {
         const times = []
         for (let h = 9; h <= 19; h++) {
             for (let m of [0, 30]) {
-                if (h === 19 && m > 0) continue // não passa das 19:00
+                if (h === 19 && m > 0) continue // não passa das 19:00 (UI fallback)
                 const hour = String(h).padStart(2, "0")
                 const minute = String(m).padStart(2, "0")
                 times.push(`${hour}:${minute}`)
@@ -21,6 +21,8 @@ const ScheduleForm = () => {
         }
         return times
     }, [])
+
+    const [options, setOptions] = useState(initialOptions)
 
     const servicesOptions = [
         {
@@ -77,6 +79,25 @@ const ScheduleForm = () => {
         const api = import.meta.env.VITE_API_URL;
 
         try {
+            // Verifica se já existe agendamento para esse telefone na mesma data
+            const foundRes = await axios.get(`${api}/schedule/find`, { params: { phone: tel, date } });
+            const existing = foundRes.data.schedule;
+            if (existing) {
+                const ok = window.confirm('Já existe um agendamento para esse telefone nesta data. Deseja alterar para o horário selecionado?');
+                if (ok) {
+                    const res = await axios.put(`${api}/schedule/${existing._id}`, data);
+                    toast.success(res.data.message || 'Agendamento atualizado com sucesso!');
+                    setName("");
+                    setTel("");
+                    setService("");
+                    setDate("");
+                    setTime("");
+                    return;
+                } else {
+                    return; // usuário cancelou alteração
+                }
+            }
+
             const res = await axios.post(`${api}/schedule`, data);
             toast.success(res.data.message || "Agendamento criado com sucesso!");
             // limpar campos
@@ -93,6 +114,28 @@ const ScheduleForm = () => {
             }
         }
     };
+
+    // Buscar horários disponíveis quando a data mudar
+    useEffect(() => {
+        const fetchAvailability = async () => {
+            const api = import.meta.env.VITE_API_URL;
+            if (!date) {
+                setOptions(initialOptions);
+                return;
+            }
+            try {
+                const res = await axios.get(`${api}/schedule/available`, { params: { date } });
+                const times = res.data.availableTimes || [];
+                // se não houver horários disponíveis, limpa time e mantém select vazio
+                setOptions(times.length ? times : []);
+                if (times.length) setTime(times[0]);
+                else setTime('');
+            } catch (err) {
+                setOptions(initialOptions);
+            }
+        }
+        fetchAvailability();
+    }, [date, initialOptions]);
     return (
         <form
             onSubmit={handleSubmit}
